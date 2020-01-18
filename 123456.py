@@ -97,36 +97,37 @@ class snake(object):
         self.dirny = 1
 
     def move(self):
+        global flag
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                flag = False
 
             keys = pygame.key.get_pressed()
 
-            for key in keys:
-                if keys[pygame.K_LEFT]:
-                    if self.dirnx == 0:
-                        self.dirnx = -1
-                        self.dirny = 0
-                        self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_RIGHT]:
-                    if self.dirnx == 0:
-                        self.dirnx = 1
-                        self.dirny = 0
-                        self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+            if keys[pygame.K_LEFT]:
+                if self.dirnx == 0:
+                    self.dirnx = -1
+                    self.dirny = 0
+                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_UP]:
-                    if self.dirny == 0:
-                        self.dirnx = 0
-                        self.dirny = -1
-                        self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+            elif keys[pygame.K_RIGHT]:
+                if self.dirnx == 0:
+                    self.dirnx = 1
+                    self.dirny = 0
+                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_DOWN]:
-                    if self.dirny == 0:
-                        self.dirnx = 0
-                        self.dirny = 1
-                        self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+            elif keys[pygame.K_UP]:
+                if self.dirny == 0:
+                    self.dirnx = 0
+                    self.dirny = -1
+                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+
+            elif keys[pygame.K_DOWN]:
+                if self.dirny == 0:
+                    self.dirnx = 0
+                    self.dirny = 1
+                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
         for i, c in enumerate(self.body):
             p = c.pos[:]
@@ -225,7 +226,7 @@ def message_box(subject, content):
     except:
         pass
 
-
+flag = True
 def main():
     global width, rows, s, snack
     width = 500
@@ -233,7 +234,7 @@ def main():
     win = pygame.display.set_mode((width, width))
     s = snake((0, 0, 200), (10, 10))
     snack = pole(randomSnack(rows, s), color=(0, 200, 0))
-    flag = True
+
 
     while flag:
         pygame.time.delay(50)
